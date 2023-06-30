@@ -1,0 +1,202 @@
+# depslib dependency file v1.0
+1686710293 source:c:\users\win10\onedrive\escritorio\utn\tpfinallab1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1686696817 c:\users\win10\onedrive\escritorio\utn\tpfinallab1\stpaciente.h
+
+1686710419 source:c:\users\win10\onedrive\escritorio\utn\tpfinallab1\stpaciente.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1686425458 source:c:\users\win10\onedrive\escritorio\utn\tpfinallab1\stlaboratorio.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1686423822 c:\users\win10\onedrive\escritorio\utn\tpfinallab1\stpracticas.h
+
+1686423822 c:\users\win10\onedrive\escritorio\utn\tpfinallab1\stlaboratorio.h
+
+1686425458 source:c:\users\win10\onedrive\escritorio\utn\tpfinallab1\stpracticas.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1686424810 source:c:\users\win10\onedrive\escritorio\utn\tpfinallab1\menuopciones.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	<string.h>
+
+1686424755 c:\users\win10\onedrive\escritorio\utn\tpfinallab1\menuopciones.h
+
+1687830665 source:c:\users\juanma\desktop\tp-final ok\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1687828858 c:\users\juanma\desktop\tp-final ok\stpaciente.h
+
+1687828951 c:\users\juanma\desktop\tp-final ok\stpracticas.h
+
+1687828577 c:\users\juanma\desktop\tp-final ok\stlaboratorio.h
+
+1687827725 c:\users\juanma\desktop\tp-final ok\menuopciones.h
+
+1687828580 source:c:\users\juanma\desktop\tp-final ok\stlaboratorio.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1687830674 source:c:\users\juanma\desktop\tp-final ok\stpaciente.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1687829545 source:c:\users\juanma\desktop\tp-final ok\stpracticas.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1687830665 source:c:\users\juanma\desktop\tp final\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1688085956 c:\users\juanma\desktop\tp final\stpaciente.h
+
+1687828951 c:\users\juanma\desktop\tp final\stpracticas.h
+
+1687828577 c:\users\juanma\desktop\tp final\stlaboratorio.h
+
+1687827725 c:\users\juanma\desktop\tp final\menuopciones.h
+
+1688087861 source:c:\users\juanma\desktop\tp final\stlaboratorio.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1687829545 source:c:\users\juanma\desktop\tp final\stpracticas.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1688145775 source:c:\users\gonva\desktop\tp-final-master\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1688157475 c:\users\gonva\desktop\tp-final-master\stpaciente.h
+
+1688145775 c:\users\gonva\desktop\tp-final-master\stpracticas.h
+
+1688145775 c:\users\gonva\desktop\tp-final-master\stlaboratorio.h
+
+1688145775 c:\users\gonva\desktop\tp-final-master\menuopciones.h
+
+1688160714 source:c:\users\gonva\desktop\tp-final-master\menuopciones.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1688155941 source:c:\users\gonva\desktop\tp-final-master\stlaboratorio.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1688150437 source:c:\users\gonva\desktop\tp-final-master\stpracticas.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1688161285 source:c:\users\gonva\desktop\tp-final-master\stpaciente.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+

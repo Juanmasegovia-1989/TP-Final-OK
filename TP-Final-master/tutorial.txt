@@ -1,0 +1,28 @@
+git init-----  para inicializar el control de versiones en el proyecto
+
+git status--- para ver lo que no esta agregado a git
+
+git add . --- agregar todo lo que no esta agregado
+
+
+Para hacer un COMMIT es para la preparacion previa a subir, todo lo 
+viculado al archivo de git
+
+-m + "   " para enviar un mensaje en el commit
+
+git commit -m "  "
+
+para subir lo que esta ok COMMIT-> git push origin -u master
+
+para los chicos (por unica vez)
+git clone https://github.com/Juanmasegovia-1989/TP-Final.git
+
+Despues cada vez que se quiera trabajar
+git pull 
+git fetch  (trae todas las rama)
+
+La diferencia clave entre git fetch y pull es que git pull 
+copia los cambios desde un repositorio remoto directamente a su
+ directorio de trabajo, mientras que git fetch no lo hace . 
+El comando git fetch solo copia los cambios en su repositorio
+Git local. El comando git pull hace ambas cosas.
