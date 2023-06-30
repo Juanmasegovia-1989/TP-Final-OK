@@ -17,6 +17,7 @@ void menuPrincipal ()
 {
     int opc=0;
 
+            ///gonza capo
     while (opc!=ESC)
     {
         printf("\n\t>>>>> MENU PRINCIPAL: <<<<<<\n");
