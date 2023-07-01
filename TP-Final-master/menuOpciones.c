@@ -17,15 +17,15 @@ void menuPrincipal ()
 {
     int opc=0;
 
-            ///gonza capo
+
     while (opc!=ESC)
     {
-        printf("\n\t>>>>> MENU PRINCIPAL: <<<<<<\n");
-        printf( "\n   1. Menu de Pacientes.");
-        printf( "\n   2. Menu de Practicas.");
-        printf( "\n   3. Menu de Laboratorio." );
-        printf( "\n   4. Salir." );
-        printf( "\n\n   Introduzca opcion (1-4): ");
+        printf("\n\t>>>>> MENU PRINCIPAL: <<<<<\n");
+        printf( "\n\t   1. Menu de Pacientes.");
+        printf( "\n\t   2. Menu de Practicas.");
+        printf( "\n\t   3. Menu de Laboratorio." );
+        printf( "\n\t   4. Salir." );
+        printf( "\n\t   Introduzca opcion (1-4): ");
         fflush(stdin);
         scanf("%d", &opc);
         switch (opc)
@@ -52,6 +52,7 @@ void menuPrincipal ()
 
         case 4:
             printf("\n   Salir \n\n\n\n");
+            abort();
             opc = ESC;
             break;
         }

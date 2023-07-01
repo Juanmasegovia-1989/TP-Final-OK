@@ -200,3 +200,61 @@
 	"menuOpciones.h"
 	<string.h>
 
+1688234529 source:c:\users\juanma\desktop\tp-final-ok\tp-final-master\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1688234706 c:\users\juanma\desktop\tp-final-ok\tp-final-master\stpaciente.h
+
+1688234529 c:\users\juanma\desktop\tp-final-ok\tp-final-master\stpracticas.h
+
+1688234529 c:\users\juanma\desktop\tp-final-ok\tp-final-master\stlaboratorio.h
+
+1688234529 c:\users\juanma\desktop\tp-final-ok\tp-final-master\menuopciones.h
+
+1688238882 source:c:\users\juanma\desktop\tp-final-ok\tp-final-master\menuopciones.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1688234529 source:c:\users\juanma\desktop\tp-final-ok\tp-final-master\stlaboratorio.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1688234529 source:c:\users\juanma\desktop\tp-final-ok\tp-final-master\stpracticas.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+
+1688238596 source:c:\users\juanma\desktop\tp-final-ok\tp-final-master\stpaciente.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"StPaciente.h"
+	"StPracticas.h"
+	"StLaboratorio.h"
+	"menuOpciones.h"
+	<string.h>
+

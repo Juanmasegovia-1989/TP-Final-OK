@@ -39,18 +39,19 @@ void imprimirUnPaciente(StPaciente paciente)
 {
 
     printf("\n\t>>>>> DATOS PACIENTE: <<<<<<\n");
-    printf("\n      ID #: ...............%d",paciente.idPaciente);
-    printf("\n    NOMBRE: ...............%s", paciente.nombre);
-    printf("\n  APELLIDO: ...............%s", paciente.apellido);
-    printf("\n       DNI: ...............%d", paciente.dni);
-    printf("\n   Nro.CEL: ...............%d", paciente.movil);
+    printf("\n\t      ID #: ...............%d",paciente.idPaciente);
+    printf("\n\t   NOMBRE: ...............%s", paciente.nombre);
+    printf("\n\t  APELLIDO: ...............%s", paciente.apellido);
+    printf("\n\t       DNI: ...............%d", paciente.dni);
+    printf("\n\t   Nro.CEL: ...............%d", paciente.movil);
     costoTotal(ARCHIVOLABORATORIOS, ARCHIVOPRACTICAS, paciente.idPaciente);
     if(paciente.eliminado==0)
     {
-        printf("\n EL PACIENTE ESTA ACTIVO ");
+        printf("\n \t EL PACIENTE ESTA ACTIVO \n ");
     }else{
-    printf("\n EL PACIENTE ESTA INACTIVO");
+    printf("\n\t EL PACIENTE ESTA INACTIVO \n");
     }
+
 }
 void cargarArchivoPacientes(char archivopacientes[])
 {
@@ -139,7 +140,7 @@ FILE *arc=fopen(archivopacientes,"rb");
        else
        {
 
-         printf ("\n No se encuentra el dni en el archivo \n");
+         printf ("\n\t No se encuentra el dni en el archivo \n\n");
        }
     }
     fclose(arc);
@@ -176,8 +177,6 @@ void buscarApellidoNombre(char archivopacientes[])
     fclose(arc);
 
 }
-
-
 void modificarxdni (char archi[], int dni)
 {
     int flag = 0;
@@ -207,7 +206,6 @@ void modificarxdni (char archi[], int dni)
         }
     }
 }
-
 void modificarxapellido (char archi[], char nombre[], char apellido[])
 {
     int flag = 0;
@@ -237,9 +235,6 @@ void modificarxapellido (char archi[], char nombre[], char apellido[])
         }
     }
 }
-
-
-
 void modificarPacientes ()
 {
     int opc=0;
@@ -289,9 +284,6 @@ void modificarPacientes ()
     }while (opc!=ESC);
 
 }
-
-
-
 void menuPacientes()
 {
     int opc=0;
@@ -299,14 +291,14 @@ void menuPacientes()
 
     while (opc!=ESC){
 
-    printf("\t \t MENU PACIENTES \n");
-    printf("\t \t 1. Listado de pacientes \n");
-    printf("\t \t 2. Modificar pacientes \n");
-    printf("\t \t 3. Agregar pacientes \n ");
-    printf("\t \t 4. Baja de pacientes \n ");
-    printf("\t \t 5. Buscar paciente por DNI \n ");
-    printf("\t \t 6. Buscar paciente por apellido \n ");
-    printf("\t \t 7. Volver al MENU ANTERIOR \n ");
+    printf("\n\t>>>>> MENU PACIENTES: <<<<<\n");
+    printf("\n \t 1. Listado de pacientes ");
+    printf("\n \t 2. Modificar pacientes ");
+    printf("\n \t 3. Agregar pacientes  ");
+    printf("\n \t 4. Estado de pacientes  ");
+    printf("\n \t 5. Buscar paciente por DNI ");
+    printf("\n \t 6. Buscar paciente por apellido ");
+    printf("\n \t 7. Volver al MENU ANTERIOR \n ");
     scanf("%d", &opc);
 
     switch(opc)
@@ -327,13 +319,13 @@ void menuPacientes()
 
         case 4: system("cls");
                 fflush(stdin);
-                ///funcion baja de paciente
+                estadoPaciente();
                 fflush(stdin);
                 break;
 
         case 5: system("cls");
                 int dni;
-                printf("Ingrese el DNI que quiere buscar \n");
+                printf("\n\t Ingrese el DNI que quiere buscar \n");
                 scanf("%d", &dni);
                 buscarxDni(AR_Paciente, dni);
                 break;
@@ -356,8 +348,6 @@ void menuPacientes()
     }
     }
 }
-
-
 void costoTotal(char archivo[], char Archivo[], int ID)
 {
     FILE * archi = fopen(ARCHIVOLABORATORIOS, "rb");
@@ -385,76 +375,11 @@ void costoTotal(char archivo[], char Archivo[], int ID)
                 rewind (ptr);
             }
         }
-        printf("\n  El costo total es %i, en %i laboratorios\n", acumuladorCosto, i);
+        printf("\n\t  El costo total es %i, en %i laboratorios\n", acumuladorCosto, i);
         fclose(archi);
         fclose(ptr);
     }
 }
-void menuPacientes()
-{
-    int opc=0;
-
-
-    while (opc!=ESC){
-
-    printf("\t \t MENU PACIENTES \n");
-    printf("\t \t 1. Listado de pacientes \n");
-    printf("\t \t 2. Modificar pacientes \n");
-    printf("\t \t 3. Agregar pacientes \n ");
-    printf("\t \t 4. Estado de pacientes \n ");
-    printf("\t \t 5. Buscar paciente por DNI \n ");
-    printf("\t \t 6. Buscar paciente por apellido \n ");
-    printf("\t \t 7. Volver al MENU ANTERIOR \n ");
-    scanf("%d", &opc);
-
-    switch(opc)
-    {
-        case 1: system("cls");
-                mostrarArchivoPacientes(AR_Paciente);
-                break;
-
-        case 2: system("cls");
-                modificarPacientes();
-                break;
-
-        case 3: system("cls");
-                fflush(stdin);
-                cargarArchivoPacientes(AR_Paciente);
-                fflush(stdin);
-                break;
-
-        case 4: system("cls");
-                fflush(stdin);
-                ///funcion baja de paciente
-                fflush(stdin);
-                break;
-
-        case 5: system("cls");
-                int dni;
-                printf("Ingrese el DNI que quiere buscar \n");
-                scanf("%d", &dni);
-                buscarxDni(AR_Paciente, dni);
-                break;
-
-        case 6: system("cls");
-                buscarApellidoNombre(AR_Paciente);
-                break;
-
-        case 7: fflush(stdin);
-                system("cls");
-                menuPrincipal();
-                fflush(stdin);
-                system("cls");
-                break;
-
-
-        default: system("cls");
-                printf("OPCION NO VALIDA");
-                break;
-    }
-    }
-}
-
 void estadoPaciente ()
 {
     int opc=0;
@@ -463,7 +388,7 @@ void estadoPaciente ()
 
     do
     {
-        printf(" \t \t MENU MODIFICACION ESTADO DE PACIENTE \n");
+        printf(" \t \t MENU MODIFICACION ESTADO DE PACIENTE \n\n\n");
         printf("\t \t 1. Baja de Paciente \n");
         printf("\t \t 2. Reactivacion de Paciente \n");
         printf("\t \t 3. Volver MENU ANTERIOR \n");
@@ -478,7 +403,7 @@ void estadoPaciente ()
             fflush(stdin);
             scanf("%d",&dni);
             flaglogico=0;
-            ///funcion
+            estadoPacienteLogico ( flaglogico, dni );
             break;
 
         case 2:
@@ -487,7 +412,7 @@ void estadoPaciente ()
             fflush(stdin);
             scanf("%d", &dni);
             flaglogico=1;
-            /// funcion
+            estadoPacienteLogico ( flaglogico, dni );
             break;
 
         case 3:
@@ -501,7 +426,91 @@ void estadoPaciente ()
             break;
         }
     }while (opc!=ESC);
+
+
+    }
+void estadoPacienteLogico( int flagLog, int dni)
+{
+    FILE *arc=fopen(AR_Paciente,"r+b");
+    StPaciente paciente;
+    if (arc!=NULL)
+    {
+        if (flagLog == 0) /// eliminacion logica del paciente
+        {
+            while ((!feof(arc))&&(paciente.dni!=dni))
+            {
+                fread(&paciente,sizeof(StPaciente),1,arc);
+                if ( dni == paciente.dni)
+                {
+                    paciente.eliminado=1;
+                    printf("\n\t Su cambio de efectuo correctamente \n");
+                    imprimirUnPaciente(paciente);
+                    puts("\n\t ------------------------------------ \n");
+                    system("pause");
+                    system("cls");
+                }
+            }
+        }
+
+        else  /// Cambio de valor asignado al Flag para que sea TRUE
+        {
+            while ((!feof(arc))&&(paciente.dni!=dni))
+            {
+                fread(&paciente,sizeof(StPaciente),1,arc);
+                if ( dni == paciente.dni)
+                {
+                    paciente.eliminado=0;
+                    printf("\n\t Su cambio de efectuo correctamente \n");
+                    imprimirUnPaciente(paciente);
+                    puts("\n\t ------------------------------------ \n");
+                    system("pause");
+                    system("cls");
+                }
+            }
+        }
+
+    }
+    else
+    {
+        printf ("\n\t No se encuentra el dni en el archivo \n");
+        system("pause");
+        system("cls");
+    }
+    fclose(arc);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
