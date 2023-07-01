@@ -44,6 +44,7 @@ void imprimirUnPaciente(StPaciente paciente)
     printf("\n  APELLIDO: ...............%s", paciente.apellido);
     printf("\n       DNI: ...............%d", paciente.dni);
     printf("\n   Nro.CEL: ...............%d", paciente.movil);
+    costoTotal(ARCHIVOLABORATORIOS, ARCHIVOPRACTICAS, paciente.idPaciente);
     if(paciente.eliminado==0)
     {
         printf("\n EL PACIENTE ESTA ACTIVO ");
@@ -357,9 +358,150 @@ void menuPacientes()
 }
 
 
+void costoTotal(char archivo[], char Archivo[], int ID)
+{
+    FILE * archi = fopen(ARCHIVOLABORATORIOS, "rb");
+    FILE * ptr = fopen(ARCHIVOPRACTICAS, "rb");
+
+    int i = 0;
+    int acumuladorCosto = 0;
+    StLaboratorios auxlab;
+    stPracticas auxprac;
+
+    if(ptr && archi)
+    {
+        while(fread(&auxlab, sizeof(StLaboratorios), 1, archi) > 0)
+        {
+            if(ID == auxlab.idPaciente)
+            {
+                while(fread(&auxprac, sizeof(stPracticas), 1, ptr) > 0)
+                {
+                    if(auxprac.idPractica == auxlab.PracticaRealizada)
+                    {
+                    acumuladorCosto = acumuladorCosto + auxprac.costo ;
+                    i++;
+                    }
+                }
+                rewind (ptr);
+            }
+        }
+        printf("\n  El costo total es %i, en %i laboratorios\n", acumuladorCosto, i);
+        fclose(archi);
+        fclose(ptr);
+    }
+}
+void menuPacientes()
+{
+    int opc=0;
 
 
+    while (opc!=ESC){
 
+    printf("\t \t MENU PACIENTES \n");
+    printf("\t \t 1. Listado de pacientes \n");
+    printf("\t \t 2. Modificar pacientes \n");
+    printf("\t \t 3. Agregar pacientes \n ");
+    printf("\t \t 4. Estado de pacientes \n ");
+    printf("\t \t 5. Buscar paciente por DNI \n ");
+    printf("\t \t 6. Buscar paciente por apellido \n ");
+    printf("\t \t 7. Volver al MENU ANTERIOR \n ");
+    scanf("%d", &opc);
+
+    switch(opc)
+    {
+        case 1: system("cls");
+                mostrarArchivoPacientes(AR_Paciente);
+                break;
+
+        case 2: system("cls");
+                modificarPacientes();
+                break;
+
+        case 3: system("cls");
+                fflush(stdin);
+                cargarArchivoPacientes(AR_Paciente);
+                fflush(stdin);
+                break;
+
+        case 4: system("cls");
+                fflush(stdin);
+                ///funcion baja de paciente
+                fflush(stdin);
+                break;
+
+        case 5: system("cls");
+                int dni;
+                printf("Ingrese el DNI que quiere buscar \n");
+                scanf("%d", &dni);
+                buscarxDni(AR_Paciente, dni);
+                break;
+
+        case 6: system("cls");
+                buscarApellidoNombre(AR_Paciente);
+                break;
+
+        case 7: fflush(stdin);
+                system("cls");
+                menuPrincipal();
+                fflush(stdin);
+                system("cls");
+                break;
+
+
+        default: system("cls");
+                printf("OPCION NO VALIDA");
+                break;
+    }
+    }
+}
+
+void estadoPaciente ()
+{
+    int opc=0;
+    int dni=0;
+    int flaglogico=0;
+
+    do
+    {
+        printf(" \t \t MENU MODIFICACION ESTADO DE PACIENTE \n");
+        printf("\t \t 1. Baja de Paciente \n");
+        printf("\t \t 2. Reactivacion de Paciente \n");
+        printf("\t \t 3. Volver MENU ANTERIOR \n");
+        fflush(stdin);
+        scanf("%d", &opc);
+
+        switch(opc)
+        {
+        case 1:
+            system("cls");
+            printf("\n Ingrese el dni del Paciente que desea dar de BAJA \n");
+            fflush(stdin);
+            scanf("%d",&dni);
+            flaglogico=0;
+            ///funcion
+            break;
+
+        case 2:
+            system("cls");
+            printf("\n Ingrese el dni del Paciente que desea REACTIVAR \n");
+            fflush(stdin);
+            scanf("%d", &dni);
+            flaglogico=1;
+            /// funcion
+            break;
+
+        case 3:
+            system("cls");
+            menuPacientes();
+            break;
+
+        default:
+            system("cls");
+            printf("OPCION NO VALIDA");
+            break;
+        }
+    }while (opc!=ESC);
+}
 
 
 
