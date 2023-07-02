@@ -13,8 +13,8 @@ int eliminado; /// 0 si está activo - 1 si está eliminado
 StPaciente cargaPacientes ();
 void imprimirUnPaciente(StPaciente paciente);
 void cargarArchivoPacientes( char archivoPacientes[]);
-void mostrarArchivoPacientes (char archivoPacientes[]);
-void pasaArreglo (StPaciente array[], FILE* Arc);
+void mostrarArchivoPacientes (char archivoPacientes[],StPaciente array[],int estado);
+void pasaArreglo (StPaciente array[], FILE* Arc, int estado, int validos);
 int menorLetras(StPaciente array[], int pos, int validos);
 void ordenaAlfabticamente (StPaciente array[], int validos);
 void muestraArreglo (StPaciente array[],int validos);

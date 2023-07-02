@@ -159,10 +159,6 @@ void bajaLaboratorio (char archi[])
     }
     fclose(dat);
 }
-
-
-
-
 void menuLaboratorios ()
 {
     int opc;

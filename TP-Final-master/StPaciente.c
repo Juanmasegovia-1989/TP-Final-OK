@@ -33,7 +33,7 @@ StPaciente cargaPacientes ()
     printf ("\n Nro. CELULAR:\n");
     fflush (stdin);
     scanf ("%d", &paciente.movil);
-    paciente.eliminado =0;
+    paciente.eliminado =1;
 
     return paciente;
 }
@@ -46,13 +46,16 @@ void imprimirUnPaciente(StPaciente paciente)
     printf("\n\t  APELLIDO: ...............%s", paciente.apellido);
     printf("\n\t       DNI: ...............%d", paciente.dni);
     printf("\n\t   Nro.CEL: ...............%d", paciente.movil);
+    printf("\n\t   Nro.CEL: ...............%d", paciente.eliminado);
+
+    /*
     costoTotal(ARCHIVOLABORATORIOS, ARCHIVOPRACTICAS, paciente.idPaciente);
     if(paciente.eliminado==0)
     {
-        printf("\n \t EL PACIENTE ESTA ACTIVO \n ");
+        printf("\n \t EL PACIENTE ESTA INACTIVO \n ");
     }else{
-    printf("\n\t EL PACIENTE ESTA INACTIVO \n");
-    }
+    printf("\n\t EL PACIENTE ESTA ACTIVO \n");
+    }*/
 
 }
 void cargarArchivoPacientes(char archivopacientes[])  ///Opcion N°3
@@ -135,51 +138,11 @@ int ultimoIdpac (char archivopacientes[])
 
 
 
-void mostrarArchivoPacientes (char archivopacientes[])   ///Opcion N°1 para ordenarlo alfabeticamente lo pasamos a un arreglo
-{
-StPaciente array [DIM_ARRAY];
-int validos=ultimoIdpac(archivopacientes);
-FILE* Arc = fopen (archivopacientes, "rb");
-StPaciente paciente;
-   if (Arc!=NULL)
-   {
-        printf("\n=========================================\n");
-        ///imprimirUnPaciente(paciente);
-        pasaArreglo(array,Arc);
-        ordenaAlfabticamente(array,validos);
-        muestraArreglo(array, validos);
-
-   }
-   else
-   {
-       printf ("\n ERROR en archivo");
-   }
-
-   fclose (Arc);
-}
 
 
 
 
-void pasaArreglo (StPaciente array[], FILE* Arc)
-{
-    StPaciente orden;
-    int i=0;
 
-    if (Arc!= NULL)
-    {
-        while ( fread(&orden, sizeof(StPaciente),1,Arc)>0)
-        {
-            array[i]=orden;
-            i++;
-        }
-    }
-    else
-    {
-        printf(" \n\t ERROR \n");
-    }
-
-}
 int menorLetras(StPaciente array[], int pos, int validos)
 {
     StPaciente menor = array[pos];
@@ -442,15 +405,17 @@ void estadoPacienteLogico( int flagLog, int dni) ///Opcion N°4.1 y 4.2
     StPaciente paciente;
     if (arc!=NULL)
     {
-        if (flagLog == 0) /// eliminacion logica del paciente
+        if (flagLog == 1) /// eliminacion logica del paciente
         {
             while ((!feof(arc))&&(paciente.dni!=dni))
             {
                 fread(&paciente,sizeof(StPaciente),1,arc);
                 if ( dni == paciente.dni)
                 {
-                    paciente.eliminado=1;
+                    paciente.eliminado=0;
                     printf("\n\t Su cambio de efectuo correctamente \n");
+                    fseek(arc,-1*sizeof(StPaciente),SEEK_CUR);
+                    fwrite(&paciente, sizeof(StPaciente),1,arc);
                     imprimirUnPaciente(paciente);
                     puts("\n\t ------------------------------------ \n");
                     system("pause");
@@ -468,6 +433,8 @@ void estadoPacienteLogico( int flagLog, int dni) ///Opcion N°4.1 y 4.2
                 {
                     paciente.eliminado=0;
                     printf("\n\t Su cambio de efectuo correctamente \n");
+                    fseek(arc,-1*sizeof(StPaciente),SEEK_CUR);
+                    fwrite(&paciente, sizeof(StPaciente),1,arc);
                     imprimirUnPaciente(paciente);
                     puts("\n\t ------------------------------------ \n");
                     system("pause");
@@ -505,7 +472,7 @@ void menuPacientes()
     switch(opc)
     {
         case 1: system("cls");
-                mostrarArchivoPacientes(AR_Paciente);
+                muestraPacientes(AR_Paciente);
                 break;
 
         case 2: system("cls");
@@ -550,20 +517,18 @@ void menuPacientes()
     }
 }
 
-/*
-void muestraPacientes ( archivopacientes[])
+
+void muestraPacientes (char archivopacientes[])
 {
     int opc=0;
-    char apellido[30];
-    char nombre[30];
-    int dni;
 
     do
     {
-        printf(" \t \t MENU BUSQUEDA PARA MODIFICAR \n");
-        printf("\t \t 1. Busqueda por APELLIDO y NOMBRE \n");
-        printf("\t \t 2. Busqueda por DNI \n");
-        printf("\t \t 3. Volver MENU ANTERIOR \n");
+        printf(" \t \t MENU MOSTRAR PACIENTES \n");
+        printf("\t \t 1. Pacientes Activos \n");
+        printf("\t \t 2. Pacientes Inactivos\n");
+        printf("\t \t 3. Mostrar todos \n");  ///No discrimina estado (alta/baja)
+        printf("\t \t 4. Volver al menu anterior \n");  ///No discrimina estado (alta/baja)
         fflush(stdin);
         scanf("%d", &opc);
 
@@ -571,23 +536,24 @@ void muestraPacientes ( archivopacientes[])
         {
         case 1:
             system("cls");
-            printf("Ingrese el nombre a buscar \n");
-            fflush(stdin);
-            gets(nombre);
-            printf("Ingrese el apellido a buscar \n");
-            fflush(stdin);
-            gets(apellido);
-            modificarxapellido(AR_Paciente, nombre, apellido);
+            StPaciente arrayalta [DIM_ARRAY];
+            mostrarArchivoPacientes (archivopacientes,arrayalta, 1);
+
             break;
 
         case 2:
             system("cls");
-            printf("Ingrese el dni a buscar \n");
-            scanf("%d", &dni);
-            modificarxdni(AR_Paciente, dni);
+            StPaciente arraybaja [DIM_ARRAY];
+            mostrarArchivoPacientes (archivopacientes,arraybaja, 0);
             break;
 
-        case 3:
+         case 3:
+            system("cls");
+            StPaciente arraytodos [DIM_ARRAY];
+            mostrarArchivoPacientes (archivopacientes,arraytodos, 2);
+            break;
+
+        case 4:
             system("cls");
             menuPacientes();
             break;
@@ -601,10 +567,75 @@ void muestraPacientes ( archivopacientes[])
 
 }
 
-*/
+void mostrarArchivoPacientes (char archivopacientes[], StPaciente array[], int estado)   ///Opcion N°1 para ordenarlo alfabeticamente lo pasamos a un arreglo
+{
+int validos=ultimoIdpac(archivopacientes);
+FILE* Arc = fopen (archivopacientes, "rb");
+StPaciente paciente;
+   if (Arc!=NULL)
+   {
+        printf("\n=========================================\n");
+        ///imprimirUnPaciente(paciente);
+        pasaArreglo(array,Arc,estado,validos);
+        ordenaAlfabticamente(array,validos);
+        muestraArreglo(array, validos);
 
+   }
+   else
+   {
+       printf ("\n ERROR en archivo");
+   }
 
+   fclose (Arc);
 
+   }
+
+void pasaArreglo (StPaciente array[], FILE* Arc, int estado , int validos)
+{
+    StPaciente orden;
+    int i=0;
+
+    if (Arc!= NULL)
+    {
+        while ( fread(&orden, sizeof(StPaciente),1,Arc)>0)
+        {
+            if ( estado==1)
+            {
+                if (array[i].eliminado=0) ///paciente activo
+                {
+                    array[i]=orden;
+                    i++;
+                }
+                else
+                {
+                    validos --;
+                }
+            }
+            if ( estado== 0)
+            {
+                if (array[i].eliminado=0) ///paciente activo
+                {
+                    array[i]=orden;
+                    i++;
+                }
+                else
+                {
+                    validos --;
+                }
+            }
+            if (estado==2 )
+            {
+                array[i]=orden;
+                i++;
+            }
+        }
+    }
+    else
+    {
+        printf(" \n\t ERROR \n");
+    }
+
+}
 
 
 
