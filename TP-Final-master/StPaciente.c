@@ -135,6 +135,7 @@ int ultimoIdpac (char archivopacientes[])
 void mostrarArchivoPacientes (char archivopacientes[])   ///Opcion N°1
 {
 StPaciente array [DIM_ARRAY];
+int validos=ultimoIdpac(archivopacientes);
 FILE* Arc = fopen (archivopacientes, "rb");
 StPaciente paciente;
    if (Arc!=NULL)
@@ -142,8 +143,8 @@ StPaciente paciente;
         printf("\n=========================================\n");
         ///imprimirUnPaciente(paciente);
         pasaArreglo(array,Arc);
-        ordenaAlfabticamente(array);
-        muestraArreglo(array);
+        ordenaAlfabticamente(array,validos);
+        muestraArreglo(array, validos);
 
    }
    else
@@ -154,16 +155,17 @@ StPaciente paciente;
    fclose (Arc);
 }
 
-StPaciente *pasaArreglo (StPaciente array[], FILE* Arc)
+void pasaArreglo (StPaciente array[], FILE* Arc)
 {
     StPaciente orden;
+    int i=0;
 
     if (Arc!= NULL)
     {
-        while ( fread(&orden, sizeof(StPaciente),1,ARC)>0)
+        while ( fread(&orden, sizeof(StPaciente),1,Arc)>0)
         {
             array[i]=orden;
-            i++
+            i++;
         }
     }
     else
@@ -171,9 +173,8 @@ StPaciente *pasaArreglo (StPaciente array[], FILE* Arc)
         printf(" \n\t ERROR \n");
     }
 
-    return array;
 }
-StPaciente menorLetras(StPaciente array[], int pos, int validos)
+int menorLetras(StPaciente array[], int pos, int validos)
 {
     StPaciente menor = array[pos];
     int i = pos +1;
@@ -189,12 +190,12 @@ StPaciente menorLetras(StPaciente array[], int pos, int validos)
     }
     return posmenor;
 }
-StPaciente ordenaAlfabticamente (StPaciente array[])
+void ordenaAlfabticamente (StPaciente array[], int validos)
 {
     int posmenor;
     StPaciente aux;
     int i = 0;
-    int validos=ultimoIdpac();
+
     while (i<validos-1)
     {
         posmenor = menorLetras(array,i,validos);
@@ -203,16 +204,15 @@ StPaciente ordenaAlfabticamente (StPaciente array[])
         array[i]= aux;
         i++;
     }
-  return array;
 }
-StPaciente muestraArreglo (StPaciente array[])
+void muestraArreglo (StPaciente array[],int validos)
 {
-   int validos=ultimoIdpac();
+    int i=0;
 
    while(i<validos)
    {
-       imprimirUnPaciente(array);
-       i++
+       imprimirUnPaciente(array[i]);
+       i++;
    }
 }
 
