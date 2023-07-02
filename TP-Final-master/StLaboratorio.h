@@ -18,6 +18,7 @@ int ultimoId(char archi[]);
 void mostrarLaboratorio(StLaboratorios aux);
 void mostrarLaboratorios(char archi []);
 void modificarLaboratorios (char archi[]);
+void bajaLaboratorio (char archi[]);
 void menuLaboratorios ();
 
 

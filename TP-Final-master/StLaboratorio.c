@@ -58,13 +58,13 @@ void cargaLaboratorios(char archi[])
 }
 int ultimoId(char archi[])
 {
-    int ultId = 0;
-    StLaboratorios aux;
+    int ultId=0;
 
     FILE * dat = fopen(archi, "rb");
 
     if(dat!=NULL)
     {
+        StLaboratorios aux;
         fseek(dat, -1*sizeof(StLaboratorios), SEEK_END);
         if(fread(&aux, sizeof(StLaboratorios),1,dat)>0)
         {
@@ -75,18 +75,18 @@ int ultimoId(char archi[])
 }
 void mostrarLaboratorio(StLaboratorios aux)
 {
-    printf("\n ID laboratorio: %d ", aux.idLab);
-    printf("\n ID paciente: %d", aux.idPaciente);
-    printf("\n Anio: %d", aux.anio);
-    printf("\n Mes: %d", aux.mes);
-    printf("\n Dia: %d", aux.dia);
-    printf("\n ID de la practica realizada: %d \n", aux.PracticaRealizada);
+    printf("\n\t ID laboratorio: %d ", aux.idLab);
+    printf("\n\t ID paciente:    %d", aux.idPaciente);
+    printf("\n\t Anio: %d", aux.anio);
+    printf("\n\t Mes:  %d", aux.mes);
+    printf("\n\t Dia:  %d", aux.dia);
+    printf("\n\t ID de la practica realizada: %d \n", aux.PracticaRealizada);
 
     if(aux.baja!=0)
     {
-        printf("El laboratorio esta eliminado \n");
+        printf("\n\t El laboratorio esta eliminado \n");
     }else{
-    printf("El laboratorio esta activo \n");
+    printf("\n\t El laboratorio esta activo \n");
     }
 }
 void mostrarLaboratorios(char archi [])
@@ -132,6 +132,37 @@ void modificarLaboratorios (char archi[])
         }
     }
 }
+void bajaLaboratorio (char archi[])
+{
+    StLaboratorios baja;
+    int id=modificarxid(archi);
+    FILE *dat = fopen(archi, "r+b");
+    if (dat!=NULL)
+    {
+        while( fread(&baja, sizeof(StLaboratorios),1,dat)>0)
+        {
+            if (baja.idLab=id)
+            {
+                baja.baja=1;
+                mostrarLaboratorio(baja);
+                puts("\n\t ------------------------------------ \n");
+                system("pause");
+                system("cls");
+            }
+        }
+    }
+    else
+    {
+        printf("\n\t El ID ingresado no existe \n");
+        system("pause");
+        system("cls");
+    }
+    fclose(dat);
+}
+
+
+
+
 void menuLaboratorios ()
 {
     int opc;
@@ -163,7 +194,7 @@ void menuLaboratorios ()
 
         case 4: system("cls");
             fflush(stdin);
-            ///funcion eliminado logico de labo
+            bajaLaboratorio (ARCHIVOLABORATORIOS);
             fflush(stdin);
             break;
 

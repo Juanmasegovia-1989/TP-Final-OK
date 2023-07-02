@@ -104,7 +104,7 @@ int ultimoIdprac(char archi[])
 int modificarxid(char archi[])
 {
     int id;
-    printf("Ingrese el ID que desea modificar datos: ");
+    printf("\n\t Ingrese el ID que desea modificar datos: ");
     scanf("%d", &id);
     return id;
 }

@@ -12,6 +12,7 @@
 #include <string.h>
 #define ARCHIVOPRACTICAS "practicas.dat"
 #define ARCHIVOLABORATORIOS "laboratorios.dat"
+#define DIM_ARRAY 200
 
 StPaciente cargaPacientes ()
 {
@@ -28,6 +29,7 @@ StPaciente cargaPacientes ()
     printf ("\n DNI:\n");
     fflush (stdin);
     scanf ("%d", &paciente.dni);
+    ///Repite DNI validacion.
     printf ("\n Nro. CELULAR:\n");
     fflush (stdin);
     scanf ("%d", &paciente.movil);
@@ -53,7 +55,7 @@ void imprimirUnPaciente(StPaciente paciente)
     }
 
 }
-void cargarArchivoPacientes(char archivopacientes[])
+void cargarArchivoPacientes(char archivopacientes[])  ///Opcion N°3
 {
     char opc =0;
     StPaciente paciente;
@@ -74,6 +76,38 @@ void cargarArchivoPacientes(char archivopacientes[])
         }while(opc != ESC);
 
         fclose(Arc);
+    }
+}
+void costoTotal(char archivo[], char Archivo[], int ID) ///funcion interna Opcion N°1
+{
+    FILE * archi = fopen(ARCHIVOLABORATORIOS, "rb");
+    FILE * ptr = fopen(ARCHIVOPRACTICAS, "rb");
+
+    int i = 0;
+    int acumuladorCosto = 0;
+    StLaboratorios auxlab;
+    stPracticas auxprac;
+
+    if(ptr && archi)
+    {
+        while(fread(&auxlab, sizeof(StLaboratorios), 1, archi) > 0)
+        {
+            if(ID == auxlab.idPaciente)
+            {
+                while(fread(&auxprac, sizeof(stPracticas), 1, ptr) > 0)
+                {
+                    if(auxprac.idPractica == auxlab.PracticaRealizada)
+                    {
+                    acumuladorCosto = acumuladorCosto + auxprac.costo ;
+                    i++;
+                    }
+                }
+                rewind (ptr);
+            }
+        }
+        printf("\n\t  El costo total es %i, en %i laboratorios\n", acumuladorCosto, i);
+        fclose(archi);
+        fclose(ptr);
     }
 }
 int ultimoIdpac (char archivopacientes[])
@@ -98,18 +132,19 @@ int ultimoIdpac (char archivopacientes[])
 
     return endId;
 }
-void mostrarArchivoPacientes (char archivopacientes[])
+void mostrarArchivoPacientes (char archivopacientes[])   ///Opcion N°1
 {
-
+StPaciente array [DIM_ARRAY];
 FILE* Arc = fopen (archivopacientes, "rb");
 StPaciente paciente;
    if (Arc!=NULL)
    {
-       while (fread (&paciente, sizeof(StPaciente),1,Arc)>0)
-       {
-           printf("\n=========================================\n");
-           imprimirUnPaciente(paciente);
-       }
+        printf("\n=========================================\n");
+        ///imprimirUnPaciente(paciente);
+        pasaArreglo(array,Arc);
+        ordenaAlfabticamente(array);
+        muestraArreglo(array);
+
    }
    else
    {
@@ -118,7 +153,73 @@ StPaciente paciente;
 
    fclose (Arc);
 }
-void buscarxDni(char archivopacientes[], int dni)
+
+StPaciente *pasaArreglo (StPaciente array[], FILE* Arc)
+{
+    StPaciente orden;
+
+    if (Arc!= NULL)
+    {
+        while ( fread(&orden, sizeof(StPaciente),1,ARC)>0)
+        {
+            array[i]=orden;
+            i++
+        }
+    }
+    else
+    {
+        printf(" \n\t ERROR \n");
+    }
+
+    return array;
+}
+StPaciente menorLetras(StPaciente array[], int pos, int validos)
+{
+    StPaciente menor = array[pos];
+    int i = pos +1;
+    int posmenor = pos;
+        while (i<validos)
+    {
+        if (strcmpi(menor.apellido,array[i].apellido)==-1)
+        {
+            menor = array[i];
+            posmenor = i;
+        }
+        i++;
+    }
+    return posmenor;
+}
+StPaciente ordenaAlfabticamente (StPaciente array[])
+{
+    int posmenor;
+    StPaciente aux;
+    int i = 0;
+    int validos=ultimoIdpac();
+    while (i<validos-1)
+    {
+        posmenor = menorLetras(array,i,validos);
+        aux = array[posmenor];
+        array[posmenor]=array[i];
+        array[i]= aux;
+        i++;
+    }
+  return array;
+}
+StPaciente muestraArreglo (StPaciente array[])
+{
+   int validos=ultimoIdpac();
+
+   while(i<validos)
+   {
+       imprimirUnPaciente(array);
+       i++
+   }
+}
+
+
+
+
+void buscarxDni(char archivopacientes[], int dni)  ///Opcion N°5
 {
 
 FILE *arc=fopen(archivopacientes,"rb");
@@ -145,7 +246,7 @@ FILE *arc=fopen(archivopacientes,"rb");
     }
     fclose(arc);
 }
-void buscarApellidoNombre(char archivopacientes[])
+void buscarApellidoNombre(char archivopacientes[])  ///Opcion N°6
 {
     FILE *arc = fopen(archivopacientes,"rb");
     StPaciente paciente;
@@ -177,7 +278,7 @@ void buscarApellidoNombre(char archivopacientes[])
     fclose(arc);
 
 }
-void modificarxdni (char archi[], int dni)
+void modificarxdni (char archi[], int dni)    ///Opcion N°2.2
 {
     int flag = 0;
     StPaciente aux;
@@ -206,7 +307,7 @@ void modificarxdni (char archi[], int dni)
         }
     }
 }
-void modificarxapellido (char archi[], char nombre[], char apellido[])
+void modificarxapellido (char archi[], char nombre[], char apellido[])   ///Opcion N°2.1
 {
     int flag = 0;
     StPaciente aux;
@@ -235,7 +336,7 @@ void modificarxapellido (char archi[], char nombre[], char apellido[])
         }
     }
 }
-void modificarPacientes ()
+void modificarPacientes ()   ///Opcion N°2
 {
     int opc=0;
     char apellido[30];
@@ -283,6 +384,104 @@ void modificarPacientes ()
         }
     }while (opc!=ESC);
 
+}
+void estadoPaciente ()  ///Opcion N°4
+{
+    int opc=0;
+    int dni=0;
+    int flaglogico=0;
+
+    do
+    {
+        printf(" \t \t MENU MODIFICACION ESTADO DE PACIENTE \n\n\n");
+        printf("\t \t 1. Baja de Paciente \n");
+        printf("\t \t 2. Reactivacion de Paciente \n");
+        printf("\t \t 3. Volver MENU ANTERIOR \n");
+        fflush(stdin);
+        scanf("%d", &opc);
+
+        switch(opc)
+        {
+        case 1:
+            system("cls");
+            printf("\n Ingrese el dni del Paciente que desea dar de BAJA \n");
+            fflush(stdin);
+            scanf("%d",&dni);
+            flaglogico=0;
+            estadoPacienteLogico ( flaglogico, dni );
+            break;
+
+        case 2:
+            system("cls");
+            printf("\n Ingrese el dni del Paciente que desea REACTIVAR \n");
+            fflush(stdin);
+            scanf("%d", &dni);
+            flaglogico=1;
+            estadoPacienteLogico ( flaglogico, dni );
+            break;
+
+        case 3:
+            system("cls");
+            menuPacientes();
+            break;
+
+        default:
+            system("cls");
+            printf("OPCION NO VALIDA");
+            break;
+        }
+    }while (opc!=ESC);
+
+
+    }
+void estadoPacienteLogico( int flagLog, int dni) ///Opcion N°4.1 y 4.2
+{
+    FILE *arc=fopen(AR_Paciente,"r+b");
+    StPaciente paciente;
+    if (arc!=NULL)
+    {
+        if (flagLog == 0) /// eliminacion logica del paciente
+        {
+            while ((!feof(arc))&&(paciente.dni!=dni))
+            {
+                fread(&paciente,sizeof(StPaciente),1,arc);
+                if ( dni == paciente.dni)
+                {
+                    paciente.eliminado=1;
+                    printf("\n\t Su cambio de efectuo correctamente \n");
+                    imprimirUnPaciente(paciente);
+                    puts("\n\t ------------------------------------ \n");
+                    system("pause");
+                    system("cls");
+                }
+            }
+        }
+
+        else  /// Cambio de valor asignado al Flag para que sea TRUE
+        {
+            while ((!feof(arc))&&(paciente.dni!=dni))
+            {
+                fread(&paciente,sizeof(StPaciente),1,arc);
+                if ( dni == paciente.dni)
+                {
+                    paciente.eliminado=0;
+                    printf("\n\t Su cambio de efectuo correctamente \n");
+                    imprimirUnPaciente(paciente);
+                    puts("\n\t ------------------------------------ \n");
+                    system("pause");
+                    system("cls");
+                }
+            }
+        }
+
+    }
+    else
+    {
+        printf ("\n\t No se encuentra el dni en el archivo \n");
+        system("pause");
+        system("cls");
+    }
+    fclose(arc);
 }
 void menuPacientes()
 {
@@ -348,137 +547,6 @@ void menuPacientes()
     }
     }
 }
-void costoTotal(char archivo[], char Archivo[], int ID)
-{
-    FILE * archi = fopen(ARCHIVOLABORATORIOS, "rb");
-    FILE * ptr = fopen(ARCHIVOPRACTICAS, "rb");
-
-    int i = 0;
-    int acumuladorCosto = 0;
-    StLaboratorios auxlab;
-    stPracticas auxprac;
-
-    if(ptr && archi)
-    {
-        while(fread(&auxlab, sizeof(StLaboratorios), 1, archi) > 0)
-        {
-            if(ID == auxlab.idPaciente)
-            {
-                while(fread(&auxprac, sizeof(stPracticas), 1, ptr) > 0)
-                {
-                    if(auxprac.idPractica == auxlab.PracticaRealizada)
-                    {
-                    acumuladorCosto = acumuladorCosto + auxprac.costo ;
-                    i++;
-                    }
-                }
-                rewind (ptr);
-            }
-        }
-        printf("\n\t  El costo total es %i, en %i laboratorios\n", acumuladorCosto, i);
-        fclose(archi);
-        fclose(ptr);
-    }
-}
-void estadoPaciente ()
-{
-    int opc=0;
-    int dni=0;
-    int flaglogico=0;
-
-    do
-    {
-        printf(" \t \t MENU MODIFICACION ESTADO DE PACIENTE \n\n\n");
-        printf("\t \t 1. Baja de Paciente \n");
-        printf("\t \t 2. Reactivacion de Paciente \n");
-        printf("\t \t 3. Volver MENU ANTERIOR \n");
-        fflush(stdin);
-        scanf("%d", &opc);
-
-        switch(opc)
-        {
-        case 1:
-            system("cls");
-            printf("\n Ingrese el dni del Paciente que desea dar de BAJA \n");
-            fflush(stdin);
-            scanf("%d",&dni);
-            flaglogico=0;
-            estadoPacienteLogico ( flaglogico, dni );
-            break;
-
-        case 2:
-            system("cls");
-            printf("\n Ingrese el dni del Paciente que desea REACTIVAR \n");
-            fflush(stdin);
-            scanf("%d", &dni);
-            flaglogico=1;
-            estadoPacienteLogico ( flaglogico, dni );
-            break;
-
-        case 3:
-            system("cls");
-            menuPacientes();
-            break;
-
-        default:
-            system("cls");
-            printf("OPCION NO VALIDA");
-            break;
-        }
-    }while (opc!=ESC);
-
-
-    }
-void estadoPacienteLogico( int flagLog, int dni)
-{
-    FILE *arc=fopen(AR_Paciente,"r+b");
-    StPaciente paciente;
-    if (arc!=NULL)
-    {
-        if (flagLog == 0) /// eliminacion logica del paciente
-        {
-            while ((!feof(arc))&&(paciente.dni!=dni))
-            {
-                fread(&paciente,sizeof(StPaciente),1,arc);
-                if ( dni == paciente.dni)
-                {
-                    paciente.eliminado=1;
-                    printf("\n\t Su cambio de efectuo correctamente \n");
-                    imprimirUnPaciente(paciente);
-                    puts("\n\t ------------------------------------ \n");
-                    system("pause");
-                    system("cls");
-                }
-            }
-        }
-
-        else  /// Cambio de valor asignado al Flag para que sea TRUE
-        {
-            while ((!feof(arc))&&(paciente.dni!=dni))
-            {
-                fread(&paciente,sizeof(StPaciente),1,arc);
-                if ( dni == paciente.dni)
-                {
-                    paciente.eliminado=0;
-                    printf("\n\t Su cambio de efectuo correctamente \n");
-                    imprimirUnPaciente(paciente);
-                    puts("\n\t ------------------------------------ \n");
-                    system("pause");
-                    system("cls");
-                }
-            }
-        }
-
-    }
-    else
-    {
-        printf ("\n\t No se encuentra el dni en el archivo \n");
-        system("pause");
-        system("cls");
-    }
-    fclose(arc);
-}
-
 
 
 

@@ -17,6 +17,8 @@ void mostrarArchivoPacientes (char archivoPacientes[]);
 void modificaUnPaciente(int flag );
 void modificarPacientes ();
 void costoTotal(char archivo[], char Archivo[], int ID);
+void estadoPaciente ();
+void estadoPacienteLogico( int flagLog, int dni);
 void menuPacientes();
 
 void menuPacientes();
