@@ -210,3 +210,13 @@ void menuLaboratorios ()
         }
     }while (opc!=ESC);
 }
+
+
+
+
+
+
+
+
+
+

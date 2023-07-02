@@ -132,7 +132,10 @@ int ultimoIdpac (char archivopacientes[])
 
     return endId;
 }
-void mostrarArchivoPacientes (char archivopacientes[])   ///Opcion N°1
+
+
+
+void mostrarArchivoPacientes (char archivopacientes[])   ///Opcion N°1 para ordenarlo alfabeticamente lo pasamos a un arreglo
 {
 StPaciente array [DIM_ARRAY];
 int validos=ultimoIdpac(archivopacientes);
@@ -154,6 +157,9 @@ StPaciente paciente;
 
    fclose (Arc);
 }
+
+
+
 
 void pasaArreglo (StPaciente array[], FILE* Arc)
 {
@@ -181,7 +187,7 @@ int menorLetras(StPaciente array[], int pos, int validos)
     int posmenor = pos;
         while (i<validos)
     {
-        if (strcmpi(menor.apellido,array[i].apellido)==-1)
+        if (strcmpi(menor.apellido,array[i].apellido)==1)
         {
             menor = array[i];
             posmenor = i;
@@ -215,10 +221,6 @@ void muestraArreglo (StPaciente array[],int validos)
        i++;
    }
 }
-
-
-
-
 void buscarxDni(char archivopacientes[], int dni)  ///Opcion N°5
 {
 
@@ -548,10 +550,58 @@ void menuPacientes()
     }
 }
 
+/*
+void muestraPacientes ( archivopacientes[])
+{
+    int opc=0;
+    char apellido[30];
+    char nombre[30];
+    int dni;
 
+    do
+    {
+        printf(" \t \t MENU BUSQUEDA PARA MODIFICAR \n");
+        printf("\t \t 1. Busqueda por APELLIDO y NOMBRE \n");
+        printf("\t \t 2. Busqueda por DNI \n");
+        printf("\t \t 3. Volver MENU ANTERIOR \n");
+        fflush(stdin);
+        scanf("%d", &opc);
 
+        switch(opc)
+        {
+        case 1:
+            system("cls");
+            printf("Ingrese el nombre a buscar \n");
+            fflush(stdin);
+            gets(nombre);
+            printf("Ingrese el apellido a buscar \n");
+            fflush(stdin);
+            gets(apellido);
+            modificarxapellido(AR_Paciente, nombre, apellido);
+            break;
 
+        case 2:
+            system("cls");
+            printf("Ingrese el dni a buscar \n");
+            scanf("%d", &dni);
+            modificarxdni(AR_Paciente, dni);
+            break;
 
+        case 3:
+            system("cls");
+            menuPacientes();
+            break;
+
+        default:
+            system("cls");
+            printf("OPCION NO VALIDA");
+            break;
+        }
+    }while (opc!=ESC);
+
+}
+
+*/
 
 
 

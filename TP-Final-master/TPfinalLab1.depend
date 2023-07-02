@@ -210,7 +210,7 @@
 	"menuOpciones.h"
 	<string.h>
 
-1688242912 c:\users\juanma\desktop\tp-final-ok\tp-final-master\stpaciente.h
+1688259255 c:\users\juanma\desktop\tp-final-ok\tp-final-master\stpaciente.h
 
 1688234529 c:\users\juanma\desktop\tp-final-ok\tp-final-master\stpracticas.h
 
@@ -228,7 +228,7 @@
 	"menuOpciones.h"
 	<string.h>
 
-1688250658 source:c:\users\juanma\desktop\tp-final-ok\tp-final-master\stlaboratorio.c
+1688259255 source:c:\users\juanma\desktop\tp-final-ok\tp-final-master\stlaboratorio.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -248,7 +248,7 @@
 	"menuOpciones.h"
 	<string.h>
 
-1688257789 source:c:\users\juanma\desktop\tp-final-ok\tp-final-master\stpaciente.c
+1688259255 source:c:\users\juanma\desktop\tp-final-ok\tp-final-master\stpaciente.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
