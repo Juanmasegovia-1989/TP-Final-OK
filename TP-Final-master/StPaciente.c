@@ -40,22 +40,22 @@ StPaciente cargaPacientes ()
 void imprimirUnPaciente(StPaciente paciente)
 {
 
-    printf("\n\t>>>>> DATOS PACIENTE: <<<<<<\n");
+    printf("\n\t     >>>>> DATOS PACIENTE: <<<<<< \n");
     printf("\n\t      ID #: ...............%d",paciente.idPaciente);
     printf("\n\t   NOMBRE: ...............%s", paciente.nombre);
     printf("\n\t  APELLIDO: ...............%s", paciente.apellido);
     printf("\n\t       DNI: ...............%d", paciente.dni);
     printf("\n\t   Nro.CEL: ...............%d", paciente.movil);
-    printf("\n\t   Nro.CEL: ...............%d", paciente.eliminado);
+    printf("\n\t   Nro.ESTADO: ...............%d \n\n", paciente.eliminado);
 
-    /*
+
     costoTotal(ARCHIVOLABORATORIOS, ARCHIVOPRACTICAS, paciente.idPaciente);
     if(paciente.eliminado==0)
     {
-        printf("\n \t EL PACIENTE ESTA INACTIVO \n ");
+        printf("\n\t EL PACIENTE ESTA ACTIVO \n ");
     }else{
-    printf("\n\t EL PACIENTE ESTA ACTIVO \n");
-    }*/
+    printf("\n\t EL PACIENTE ESTA INACTIVO \n\n\n");
+    }
 
 }
 void cargarArchivoPacientes(char archivopacientes[])  ///Opcion N°3
@@ -412,8 +412,8 @@ void estadoPacienteLogico( int flagLog, int dni) ///Opcion N°4.1 y 4.2
                 fread(&paciente,sizeof(StPaciente),1,arc);
                 if ( dni == paciente.dni)
                 {
-                    paciente.eliminado=0;
                     printf("\n\t Su cambio de efectuo correctamente \n");
+                    paciente.eliminado=0;
                     fseek(arc,-1*sizeof(StPaciente),SEEK_CUR);
                     fwrite(&paciente, sizeof(StPaciente),1,arc);
                     imprimirUnPaciente(paciente);
@@ -431,8 +431,8 @@ void estadoPacienteLogico( int flagLog, int dni) ///Opcion N°4.1 y 4.2
                 fread(&paciente,sizeof(StPaciente),1,arc);
                 if ( dni == paciente.dni)
                 {
-                    paciente.eliminado=0;
                     printf("\n\t Su cambio de efectuo correctamente \n");
+                    paciente.eliminado=1;
                     fseek(arc,-1*sizeof(StPaciente),SEEK_CUR);
                     fwrite(&paciente, sizeof(StPaciente),1,arc);
                     imprimirUnPaciente(paciente);
@@ -537,14 +537,14 @@ void muestraPacientes (char archivopacientes[])
         case 1:
             system("cls");
             StPaciente arrayalta [DIM_ARRAY];
-            mostrarArchivoPacientes (archivopacientes,arrayalta, 1);
+            mostrarArchivoPacientes (archivopacientes,arrayalta, 0);
 
             break;
 
         case 2:
             system("cls");
             StPaciente arraybaja [DIM_ARRAY];
-            mostrarArchivoPacientes (archivopacientes,arraybaja, 0);
+            mostrarArchivoPacientes (archivopacientes,arraybaja, 1);
             break;
 
          case 3:
@@ -566,7 +566,6 @@ void muestraPacientes (char archivopacientes[])
     }while (opc!=ESC);
 
 }
-
 void mostrarArchivoPacientes (char archivopacientes[], StPaciente array[], int estado)   ///Opcion N°1 para ordenarlo alfabeticamente lo pasamos a un arreglo
 {
 int validos=ultimoIdpac(archivopacientes);
@@ -589,7 +588,6 @@ StPaciente paciente;
    fclose (Arc);
 
    }
-
 void pasaArreglo (StPaciente array[], FILE* Arc, int estado , int validos)
 {
     StPaciente orden;
@@ -599,31 +597,33 @@ void pasaArreglo (StPaciente array[], FILE* Arc, int estado , int validos)
     {
         while ( fread(&orden, sizeof(StPaciente),1,Arc)>0)
         {
-            if ( estado==1)
+            if ( estado==0)
             {
-                if (array[i].eliminado=0) ///paciente activo
+                if (array[i].eliminado==0) ///paciente activo
                 {
                     array[i]=orden;
                     i++;
-                }
-                else
-                {
                     validos --;
                 }
+                /*else
+                {
+                    validos --;
+                }*/
             }
-            if ( estado== 0)
+            if ( estado== 1)
             {
-                if (array[i].eliminado=0) ///paciente activo
+                if (array[i].eliminado==1) ///paciente eliminado
                 {
                     array[i]=orden;
                     i++;
-                }
-                else
-                {
                     validos --;
                 }
+               /* else
+                {
+                    validos --;
+                }*/
             }
-            if (estado==2 )
+            if(estado==2)
             {
                 array[i]=orden;
                 i++;
