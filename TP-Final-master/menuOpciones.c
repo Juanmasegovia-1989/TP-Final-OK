@@ -18,7 +18,7 @@ void menuPrincipal ()
     int opc=0;
 
 
-    while (opc!=ESC)
+    while (opc!=4)
     {
         printf("\n\t>>>>> MENU PRINCIPAL: <<<<<\n");
         printf( "\n\t   1. Menu de Pacientes.");
@@ -30,11 +30,7 @@ void menuPrincipal ()
         scanf("%d", &opc);
         switch (opc)
         {
-        default:
-            system("cls");
-            printf("Ingrese una opcion valida \n");
-            menuPrincipal();
-            break;
+
         case 1:
             system("cls");
             menuPacientes();
@@ -51,9 +47,15 @@ void menuPrincipal ()
             break;
 
         case 4:
-            printf("\n   Salir \n\n\n\n");
-            abort();
-            opc = ESC;
+            ///printf("\n   Salir \n\n\n\n");
+            ///abort();
+            opc = 4;
+            break;
+
+        default:
+            system("cls");
+            printf("Ingrese una opcion valida \n");
+            menuPrincipal();
             break;
         }
 

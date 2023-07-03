@@ -49,7 +49,7 @@ void imprimirUnPaciente(StPaciente paciente)
     costoTotal(ARCHIVOLABORATORIOS, ARCHIVOPRACTICAS, paciente.idPaciente);
     if(paciente.eliminado==0)
     {
-        printf("\n\t EL PACIENTE ESTA ACTIVO \n ");
+        printf("\n\t EL PACIENTE ESTA ACTIVO \n\n\n ");
     }else{
     printf("\n\t EL PACIENTE ESTA INACTIVO \n\n\n");
     }
@@ -179,6 +179,8 @@ void muestraPacientes (char archivopacientes[])
         }
     }while (opc!=ESC);
 
+
+
 }
 void mostrarArchivoPacientes (char archivopacientes[], StPaciente array[], int estado)   ///Opcion N°1 para ordenarlo alfabeticamente lo pasamos a un arreglo
 {
@@ -191,7 +193,7 @@ FILE* Arc = fopen (archivopacientes, "rb");
         validos=pasaArreglo(array,Arc,estado,validos);
         ordenaAlfabticamente(array,validos);
         muestraArreglo(array, validos);
-
+        printf("\n=============================================================\n");
    }
    else
    {
@@ -199,6 +201,8 @@ FILE* Arc = fopen (archivopacientes, "rb");
    }
 
    fclose (Arc);
+    system("pause");
+    system("cls");
 
    }
 int pasaArreglo (StPaciente array[], FILE* Arc, int estado , int validos)
