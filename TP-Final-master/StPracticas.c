@@ -155,6 +155,37 @@ int repiteNombre (char archi[], stPracticas aux)
     fclose(dat);
     }
 }
+void bajaPractica (char archi[])
+{
+    stPracticas baja;
+    int id=modificarxid(archi);
+    FILE *dat = fopen(archi, "r+b");
+    if (dat!=NULL)
+    {
+        while( fread(&baja, sizeof(stPracticas),1,dat)>0 && baja.baja!=1)
+        {
+            if (baja.idPractica==id)
+            {
+                baja.baja=1;
+                fseek(dat,-1*sizeof(stPracticas),SEEK_CUR);
+                fwrite(&baja, sizeof(stPracticas),1,dat);
+                mostrarPractica(baja);
+                puts("\n\t ------------------------------------ \n");
+            }
+        }
+    }
+    else
+    {
+        printf("\n\t El ID ingresado no existe \n");
+        system("pause");
+        system("cls");
+    }
+    fclose(dat);
+}
+
+
+
+
 void menuPracticas ()
 {
     int opc;
@@ -164,7 +195,8 @@ void menuPracticas ()
     printf("\t \t 1. Listado de practicas \n");
     printf("\t \t 2. Modificar practicas \n");
     printf("\t \t 3. Agregar practicas \n ");
-    printf("\t \t 4. Vuelve al menu principal \n ");
+    printf("\t \t 4. Eliminar practicas \n ");
+    printf("\t \t 5. Vuelve al menu principal \n ");
     scanf("%d", &opc);
 
     switch(opc)
@@ -187,6 +219,13 @@ void menuPracticas ()
                 break;
 
         case 4: system("cls");
+                fflush(stdin);
+                bajaPractica(ARCHIVOPRACTICAS);
+                fflush(stdin);
+                printf("========================================\n");
+                break;
+
+        case 5: system("cls");
                 menuPrincipal();
                 break;
 
@@ -196,3 +235,9 @@ void menuPracticas ()
     }
 }while(opc!=ESC);
 }
+
+
+
+
+
+

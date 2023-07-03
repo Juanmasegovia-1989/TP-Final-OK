@@ -42,7 +42,7 @@ void imprimirUnPaciente(StPaciente paciente)
 
     printf("\n\t     >>>>> DATOS PACIENTE: <<<<<< \n");
     printf("\n\t      ID #: ...............%d",paciente.idPaciente);
-    printf("\n\t   NOMBRE: ...............%s", paciente.nombre);
+    printf("\n\t   NOMBRE: ................%s", paciente.nombre);
     printf("\n\t  APELLIDO: ...............%s", paciente.apellido);
     printf("\n\t       DNI: ...............%d", paciente.dni);
     printf("\n\t   Nro.CEL: ...............%d \n\n", paciente.movil);
@@ -518,7 +518,7 @@ void estadoPacienteLogico( int flagLog, int dni) ///Opcion N°4.1 y 4.2
             while ((!feof(arc))&&(paciente.dni!=dni))
             {
                 fread(&paciente,sizeof(StPaciente),1,arc);
-                if ( dni == paciente.dni)
+                if ( dni == paciente.dni && paciente.eliminado==1)
                 {
                     printf("\n\t Su cambio de efectuo correctamente \n");
                     paciente.eliminado=0;
@@ -537,7 +537,7 @@ void estadoPacienteLogico( int flagLog, int dni) ///Opcion N°4.1 y 4.2
             while ((!feof(arc))&&(paciente.dni!=dni))
             {
                 fread(&paciente,sizeof(StPaciente),1,arc);
-                if ( dni == paciente.dni)
+                if ( dni == paciente.dni && paciente.eliminado==0)
                 {
                     printf("\n\t Su cambio de efectuo correctamente \n");
                     paciente.eliminado=1;

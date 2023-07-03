@@ -16,6 +16,8 @@ int ultimoIdprac(char archi[]);
 int modificarxid (char archi[]);
 void modificarPractica (char archi[]);
 int repiteNombre (char archi[], stPracticas aux);
+void bajaPractica (char archi[]);
+
 void menuPracticas ();
 
 

@@ -144,10 +144,10 @@ void bajaLaboratorio (char archi[])
             if (baja.idLab=id)
             {
                 baja.baja=1;
+                fseek(dat,-1*sizeof(StLaboratorios),SEEK_CUR);
+                fwrite(&baja, sizeof(StLaboratorios),1,dat);
                 mostrarLaboratorio(baja);
                 puts("\n\t ------------------------------------ \n");
-                system("pause");
-                system("cls");
             }
         }
     }
