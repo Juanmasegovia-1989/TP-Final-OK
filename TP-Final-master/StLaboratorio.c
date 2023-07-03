@@ -139,7 +139,7 @@ void bajaLaboratorio (char archi[])
     FILE *dat = fopen(archi, "r+b");
     if (dat!=NULL)
     {
-        while( fread(&baja, sizeof(StLaboratorios),1,dat)>0)
+        while( (fread(&baja, sizeof(StLaboratorios),1,dat)>0) && baja.baja!=1)
         {
             if (baja.idLab=id)
             {
