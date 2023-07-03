@@ -29,7 +29,6 @@ StPaciente cargaPacientes ()
     printf ("\n DNI:\n");
     fflush (stdin);
     scanf ("%d", &paciente.dni);
-    ///Repite DNI validacion.
     printf ("\n Nro. CELULAR:\n");
     fflush (stdin);
     scanf ("%d", &paciente.movil);
@@ -68,8 +67,16 @@ void cargarArchivoPacientes(char archivopacientes[])  ///Opcion N°3
         {
             contador++;
             paciente =cargaPacientes();
-            paciente.idPaciente=contador;
             fflush(stdin);
+            if (repiteDNI(AR_Paciente, paciente)==1) ///chequea que no exista el dni del paciente en el archivo
+            {
+                printf("El DNI ingresado ya se encuentra en el sistema\n");
+                printf("Ingrese de nuevo los datos \n ");
+                paciente = cargaPacientes();
+                fflush(stdin);
+            }
+            fflush(stdin);
+            paciente.idPaciente=contador;
             fwrite(&paciente, sizeof(StPaciente), 1, Arc);
             printf("\n Ingrese ESC para salir o cualquier tecla para seguir cargando pacientes");
             opc =getche ();
@@ -624,6 +631,27 @@ void menuPacientes()
     }
     }
 }
+int repiteDNI (char archi[], StPaciente aux) ///retorna 1 si encuentra el nombre en el archivo, sirve para validacion
+{
+    FILE * dat = fopen(archi, "rb");
+    rewind(dat);
+    StPaciente aux1;
+    int flag = 0;
+
+    if((dat!=NULL)){
+
+    while (fread(&aux1, sizeof(StPaciente), 1, dat)>0)
+    {
+        if (aux1.dni==aux.dni)
+        {
+            flag = 1;
+        }
+    }
+    fclose(dat);
+    return flag;
+    }
+}
+
 
 
 

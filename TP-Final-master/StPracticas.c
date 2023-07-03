@@ -84,7 +84,7 @@ void mostrarPracticas(char archi[])
         }fclose(dat);
     }
 }
-int ultimoIdprac(char archi[])
+int ultimoIdprac(char archi[])///busca y devuelve el ultimo id del archivo para poder continuar cargando los siguientes
 {
     int ultId = 0;
     stPracticas aux;
@@ -101,7 +101,7 @@ int ultimoIdprac(char archi[])
     }
     return ultId;
 }
-int modificarxid(char archi[])
+int modificarxid(char archi[])///solamente pide el id, pero sirve para modularizar
 {
     int id;
     printf("\n\t Ingrese el ID que desea modificar datos: ");
@@ -182,10 +182,6 @@ void bajaPractica (char archi[])
     }
     fclose(dat);
 }
-
-
-
-
 void menuPracticas ()
 {
     int opc;

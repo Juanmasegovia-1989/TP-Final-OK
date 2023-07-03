@@ -17,18 +17,43 @@
 
 StLaboratorios cargaLaboratorio()
 {
-    StLaboratorios lab;
+   StLaboratorios lab;
 
     printf("Ingrese el ID del paciente \n");
     scanf("%d", &lab.idPaciente);
+    while(validarPaciente(lab.idPaciente)==1)
+    {
+        printf("Ingrese un ID paciente valido: ");
+        scanf("%d", &lab.idPaciente);
+    }
     printf("Ingrese el anio \n");
     scanf("%d", &lab.anio);
+    while(lab.anio>2023)
+    {
+        printf("\n Ingrese un año valido: ");
+        scanf("%d", &lab.anio);
+    }
     printf("Ingrese el mes (en numeros) \n");
     scanf("%d", &lab.mes);
+    while (lab.mes>12)
+    {
+        printf("\n Ingrese un mes valido: ");
+        scanf("%d", &lab.mes);
+    }
     printf("Ingrese el dia \n");
     scanf("%d", &lab.dia);
+    while (lab.dia>31)
+    {
+        printf("\n Ingrese un dia valido: ");
+        scanf("%d", &lab.dia);
+    }
     printf("Ingrese el ID de la practica realizada \n");
     scanf("%d", &lab.PracticaRealizada);
+    while(validarPractica(lab.PracticaRealizada)==1)
+    {
+        printf("Ingrese un ID practica valido: ");
+        scanf("%d", &lab.PracticaRealizada);
+    }
     lab.baja = 0;
 
     return lab;
@@ -56,7 +81,7 @@ void cargaLaboratorios(char archi[])
         fclose(dat);
     }
 }
-int ultimoId(char archi[])
+int ultimoId(char archi[]) ///retorna el ult id del archivo labs, para cargar a partir de ese
 {
     int ultId=0;
 
@@ -75,12 +100,14 @@ int ultimoId(char archi[])
 }
 void mostrarLaboratorio(StLaboratorios aux)
 {
-    printf("\n\t ID laboratorio: %d ", aux.idLab);
-    printf("\n\t ID paciente:    %d", aux.idPaciente);
-    printf("\n\t Anio: %d", aux.anio);
-    printf("\n\t Mes:  %d", aux.mes);
-    printf("\n\t Dia:  %d", aux.dia);
-    printf("\n\t ID de la practica realizada: %d \n", aux.PracticaRealizada);
+    printf("\n\t ID laboratorio:.%d ", aux.idLab);
+    printf("\n\t ID paciente:....%d", aux.idPaciente);
+    mostrarNombre(aux.idPaciente);
+    printf("\n\t Anio:...........%d", aux.anio);
+    printf("\n\t Mes:............%d", aux.mes);
+    printf("\n\t Dia:............%d", aux.dia);
+    printf("\n\t ID de la practica realizada: %d", aux.PracticaRealizada);
+    imprimirPractica(aux.PracticaRealizada);
 
     if(aux.baja!=0)
     {
@@ -106,9 +133,10 @@ void mostrarLaboratorios(char archi [])
 }
 void modificarLaboratorios (char archi[])
 {
-    int id = modificarxid(archi);
+        int id = modificarxid(archi);
     StLaboratorios aux;
     int flag = 0;
+    int idaux; ///sirve para guardar el id y no perderlo al modificar el lab
 
     FILE * dat = fopen(archi, "r+b");
     if (dat != NULL)
@@ -118,8 +146,10 @@ void modificarLaboratorios (char archi[])
             fread(&aux, sizeof(StLaboratorios), 1, dat);
             if(aux.idLab == id)
             {
+                idaux = aux.idLab;
                 mostrarLaboratorio(aux);
                 aux = cargaLaboratorio();
+                aux.idLab = idaux;
                 fseek(dat, -1*sizeof(StLaboratorios), SEEK_CUR);
                 fwrite(&aux, sizeof(StLaboratorios), 1, dat);
                 flag = 1;
@@ -130,7 +160,7 @@ void modificarLaboratorios (char archi[])
         {
             printf("No se encuentra el id en el archivo \n");
         }
-    }
+    }fclose(dat);
 }
 void bajaLaboratorio (char archi[])
 {
@@ -148,6 +178,8 @@ void bajaLaboratorio (char archi[])
                 fwrite(&baja, sizeof(StLaboratorios),1,dat);
                 mostrarLaboratorio(baja);
                 puts("\n\t ------------------------------------ \n");
+                system("pause");
+                system("cls");
             }
         }
     }
@@ -205,6 +237,78 @@ void menuLaboratorios ()
             break;
         }
     }while (opc!=ESC);
+}
+
+
+void mostrarNombre (int idp)
+{
+    FILE * arcpaciente = fopen(AR_Paciente, "rb");
+    StPaciente auxpac;
+
+        if((arcpaciente!=NULL))
+        {
+             while(fread(&auxpac, sizeof(StPaciente),1, arcpaciente)>0)
+                if(idp == auxpac.idPaciente)
+             {
+                 printf(" (%s %s)", auxpac.nombre, auxpac.apellido);
+             }
+        }fclose(arcpaciente);
+}
+void imprimirPractica (int idp)
+{
+    FILE * arcpractica = fopen(ARCHIVOPRACTICAS, "rb");
+    stPracticas auxprac;
+
+        if((arcpractica!=NULL))
+        {
+             while(fread(&auxprac, sizeof(stPracticas),1, arcpractica)>0)
+                if(idp == auxprac.idPractica)
+             {
+                 printf(" (%s)", auxprac.nombre);
+             }
+        }fclose(arcpractica);
+}
+int validarPaciente (int idpac)
+{
+    FILE*dat = fopen(AR_Paciente, "rb");
+    StPaciente aux;
+    int ultid;
+    int flag=0;
+
+    if((dat!=NULL))
+    {
+        while(fread(&aux, sizeof(StPaciente),1, dat)>0)
+        {
+            ultid = ultimoIdpac(AR_Paciente);
+            if(ultid<idpac)
+            {
+                flag=1;
+            }
+        }
+    }
+    fclose(dat);
+    return flag;
+}
+int validarPractica (int idprac)
+{
+    FILE*dat = fopen(ARCHIVOPRACTICAS, "rb");
+    stPracticas aux;
+    int ultid;
+    int flag=0;
+
+    if((dat!=NULL))
+    {
+        while(fread(&aux, sizeof(stPracticas),1, dat)>0)
+        {
+            ultid = ultimoIdprac(ARCHIVOPRACTICAS);
+            if(ultid<idprac)
+            {
+                flag=1;
+            }
+        }
+    }
+    fclose(dat);
+    return flag;
 }
 
 

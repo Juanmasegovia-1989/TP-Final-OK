@@ -23,6 +23,7 @@ void modificarPacientes ();
 void costoTotal(char archivo[], char Archivo[], int ID);
 void estadoPaciente ();
 void estadoPacienteLogico( int flagLog, int dni);
+int repiteDNI (char archi[], StPaciente aux);
 void menuPacientes();
 
 void menuPacientes();
